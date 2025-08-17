@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Methanol Production Engineering Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #06b6d4 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .safety-warning {
+            background: linear-gradient(45deg, #fef3c7, #fde68a);
+            border-left: 4px solid #f59e0b;
+        }
+        .formula-box {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="gradient-bg text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                        <span class="text-blue-600 font-bold">CH₃OH</span>
+                    </div>
+                    <h1 class="text-xl font-bold">Methanol Engineering Hub</h1>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <button onclick="showSection('home')" class="hover:text-blue-200 transition-colors">Home</button>
+                    <button onclick="showSection('calculator')" class="hover:text-blue-200 transition-colors">Tank Calculator</button>
+                    <button onclick="showSection('dashboard')" class="hover:text-blue-200 transition-colors">Production Tracker</button>
+                    <button onclick="showSection('safety')" class="hover:text-blue-200 transition-colors">Safety Guidelines</button>
+                    <button onclick="showSection('education')" class="hover:text-blue-200 transition-colors">Process Education</button>
+                    <button onclick="showSection('contact')" class="hover:text-blue-200 transition-colors">Contact</button>
+                </div>
+                <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden md:hidden bg-blue-800 text-white">
+        <div class="px-4 py-2 space-y-2">
+            <button onclick="showSection('home')" class="block w-full text-left py-2 hover:bg-blue-700 rounded">Home</button>
+            <button onclick="showSection('calculator')" class="block w-full text-left py-2 hover:bg-blue-700 rounded">Tank Calculator</button>
+            <button onclick="showSection('dashboard')" class="block w-full text-left py-2 hover:bg-blue-700 rounded">Production Tracker</button>
+            <button onclick="showSection('safety')" class="block w-full text-left py-2 hover:bg-blue-700 rounded">Safety Guidelines</button>
+            <button onclick="showSection('education')" class="block w-full text-left py-2 hover:bg-blue-700 rounded">Process Education</button>
+            <button onclick="showSection('contact')" class="block w-full text-left py-2 hover:bg-blue-700 rounded">Contact</button>
+        </div>
+    </div>
+
+    <!-- Home Section -->
+    <section id="home" class="section">
+        <div class="gradient-bg text-white py-20">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-5xl font-bold mb-6">Methanol Production Engineering</h1>
+                <p class="text-xl mb-8 max-w-3xl mx-auto">Professional tools and resources for methanol production, storage design, and safety management</p>
+                <button onclick="showSection('calculator')" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">Start Calculating</button>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 py-16">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <div class="bg-white p-6 rounded-lg shadow-lg card-hover">
+                    <div class="text-3xl mb-4">⚗️</div>
+                    <h3 class="text-xl font-bold mb-3">Chemical Properties</h3>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Formula:</strong> CH₃OH</p>
+                        <p><strong>Boiling Point:</strong> 64.7°C</p>
+                        <p><strong>Flash Point:</strong> 11°C</p>
+                        <p><strong>Density:</strong> 0.792 g/cm³</p>
+                        <p><strong>Explosive Limits:</strong> 6-36%</p>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg card-hover">
+                    <div class="text-3xl mb-4">🏭</div>
+                    <h3 class="text-xl font-bold mb-3">Industrial Applications</h3>
+                    <ul class="space-y-1 text-sm">
+                        <li>• Fuel additive and alternative fuel</li>
+                        <li>• Plastic and resin production</li>
+                        <li>• Green energy storage medium</li>
+                        <li>• Chemical synthesis feedstock</li>
+                        <li>• Solvent applications</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg card-hover">
+                    <div class="text-3xl mb-4">⚠️</div>
+                    <h3 class="text-xl font-bold mb-3">Safety Critical</h3>
+                    <div class="space-y-2 text-sm">
+                        <p><strong>Fatal Dose:</strong> 30 mL ingestion</p>
+                        <p><strong>TWA Limit:</strong> 200 ppm</p>
+                        <p><strong>STEL Limit:</strong> 250 ppm</p>
+                        <p><strong>Autoignition:</strong> 464°C</p>
+                        <p class="text-red-600 font-semibold">Vapor heavier than air</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-6">About Methanol</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">History & Development</h3>
+                        <p class="text-gray-700 mb-4">Methanol, also known as methyl alcohol or wood alcohol, was first isolated in 1661 by Robert Boyle through the destructive distillation of wood. Today, it's primarily produced through industrial synthesis from syngas (CO + H₂) using copper-based catalysts.</p>
+                        
+                        <h3 class="text-lg font-semibold mb-3">Modern Production</h3>
+                        <p class="text-gray-700">Current methanol production utilizes advanced gasification and synthesis technologies, with growing integration of green hydrogen and CO₂ capture for sustainable production pathways.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold mb-3">Key Production Reactions</h3>
+                        <div class="formula-box p-4 mb-4">
+                            <p class="font-mono">CO + 2H₂ → CH₃OH</p>
+                            <p class="font-mono">CO₂ + 3H₂ → CH₃OH + H₂O</p>
+                        </div>
+                        
+                        <h3 class="text-lg font-semibold mb-3">Green Energy Role</h3>
+                        <p class="text-gray-700">Methanol serves as a crucial energy carrier in the transition to renewable energy, enabling storage and transport of hydrogen in liquid form while supporting carbon recycling initiatives.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tank Calculator Section -->
+    <section id="calculator" class="section hidden">
+        <div class="container mx-auto px-4 py-16">
+            <h1 class="text-4xl font-bold text-center mb-12">Tank Dimension & Capacity Calculator</h1>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-white p-8 rounded-lg shadow-lg mb-8">
+                    <h2 class="text-2xl font-bold mb-6">Storage Requirements Calculator</h2>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Material Type</label>
+                            <select id="materialType" class="w-full p-3 border border-gray-300 rounded-lg" onchange="updateCalculatorFields()">
+                                <option value="coal">Coal Storage Bunker</option>
+                                <option value="feedwater">Feedwater Storage Tank</option>
+                                <option value="methanol">Methanol Product Tank</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Storage Capacity</label>
+                            <div class="flex">
+                                <input type="number" id="storageCapacity" class="flex-1 p-3 border border-gray-300 rounded-l-lg" placeholder="Enter capacity">
+                                <span id="capacityUnit" class="bg-gray-100 px-4 py-3 border border-l-0 border-gray-300 rounded-r-lg">m³</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="additionalInputs" class="grid md:grid-cols-2 gap-6 mb-6">
+                        <!-- Dynamic inputs based on material type -->
+                    </div>
+
+                    <button onclick="calculateTankDimensions()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">Calculate Tank Dimensions</button>
+                </div>
+
+                <div id="calculationResults" class="bg-white p-8 rounded-lg shadow-lg hidden">
+                    <h3 class="text-xl font-bold mb-4">Calculation Results</h3>
+                    <div id="resultsContent"></div>
+                </div>
+
+                <div class="bg-blue-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-bold mb-4">Standard Design Formulas</h3>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div class="formula-box p-4">
+                            <h4 class="font-semibold mb-2">Coal Bunker</h4>
+                            <p class="text-sm font-mono">H = V ÷ (L × W)</p>
+                            <p class="text-xs text-gray-600 mt-2">Rectangular bunker with hopper bottom</p>
+                        </div>
+                        <div class="formula-box p-4">
+                            <h4 class="font-semibold mb-2">Cylindrical Tank</h4>
+                            <p class="text-sm font-mono">V = (π/4)D²H</p>
+                            <p class="text-sm font-mono">H/D = 1.5</p>
+                            <p class="text-xs text-gray-600 mt-2">Standard height-to-diameter ratio</p>
+                        </div>
+                        <div class="formula-box p-4">
+                            <h4 class="font-semibold mb-2">Shell Thickness</h4>
+                            <p class="text-sm font-mono">t = PD/(2SE-1.2P)</p>
+                            <p class="text-xs text-gray-600 mt-2">ASME pressure vessel code</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Production Dashboard Section -->
+    <section id="dashboard" class="section hidden">
+        <div class="container mx-auto px-4 py-16">
+            <h1 class="text-4xl font-bold text-center mb-12">Methanol Production Tracker Dashboard</h1>
+            
+            <div class="grid lg:grid-cols-3 gap-8 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-lg font-bold mb-4">Daily Input Data</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Coal Consumed (t/day)</label>
+                            <input type="number" id="coalInput" class="w-full p-2 border border-gray-300 rounded" placeholder="81.72" onchange="updateProduction()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Water Consumed (t/day)</label>
+                            <input type="number" id="waterInput" class="w-full p-2 border border-gray-300 rounded" placeholder="112.45" onchange="updateProduction()">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1">Methanol Produced (t/day)</label>
+                            <input type="number" id="methanolOutput" class="w-full p-2 border border-gray-300 rounded" placeholder="100" onchange="updateProduction()">
+                        </div>
+                        <button onclick="addDailyData()" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition-colors">Add Daily Record</button>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-lg font-bold mb-4">Stoichiometric Requirements</h3>
+                    <div class="space-y-3">
+                        <div class="formula-box p-3">
+                            <p class="font-mono text-sm">CO + 2H₂ → CH₃OH</p>
+                        </div>
+                        <div class="text-sm space-y-2">
+                            <p><strong>For 100 t/day methanol:</strong></p>
+                            <p>• CO required: <span class="font-mono">87.42 t/day</span></p>
+                            <p>• H₂ required: <span class="font-mono">12.58 t/day</span></p>
+                            <p>• Coal (dry): <span class="font-mono">81.72 t/day</span></p>
+                            <p>• Water: <span class="font-mono">112.45 t/day</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-lg font-bold mb-4">Current Efficiency</h3>
+                    <div id="efficiencyMetrics" class="space-y-3">
+                        <div class="flex justify-between">
+                            <span>Coal Efficiency:</span>
+                            <span id="coalEfficiency" class="font-bold text-green-600">--</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Water Efficiency:</span>
+                            <span id="waterEfficiency" class="font-bold text-blue-600">--</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Overall Rating:</span>
+                            <span id="overallRating" class="font-bold">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-lg font-bold mb-4">Production vs Raw Materials</h3>
+                    <canvas id="productionChart" width="400" height="200"></canvas>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-lg font-bold mb-4">Efficiency Trend</h3>
+                    <canvas id="efficiencyChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-lg mt-8">
+                <h3 class="text-lg font-bold mb-4">Cumulative Production</h3>
+                <canvas id="cumulativeChart" width="800" height="300"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safety Guidelines Section -->
+    <section id="safety" class="section hidden">
+        <div class="container mx-auto px-4 py-16">
+            <h1 class="text-4xl font-bold text-center mb-12">Safety Guidelines</h1>
+            
+            <div class="safety-warning p-6 rounded-lg mb-8">
+                <div class="flex items-center mb-4">
+                    <div class="text-2xl mr-3">⚠️</div>
+                    <h2 class="text-xl font-bold text-amber-800">Critical Safety Alert</h2>
+                </div>
+                <p class="text-amber-800 font-semibold">Methanol is highly toxic and flammable. Ingestion of just 30 mL can be fatal. Always follow proper safety protocols.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <span class="text-2xl mr-2">🔥</span>
+                        Fire & Explosion Hazards
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="bg-red-50 p-4 rounded border-l-4 border-red-400">
+                            <p><strong>Flammable Limits:</strong> 6-36% in air</p>
+                            <p><strong>Flash Point:</strong> 11°C (extremely low)</p>
+                            <p><strong>Autoignition:</strong> 464°C</p>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-400">
+                            <p><strong>Vapor Characteristics:</strong></p>
+                            <p>• Heavier than air - accumulates in low areas</p>
+                            <p>• Risk in confined spaces and basements</p>
+                            <p>• Can travel considerable distances to ignition sources</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <span class="text-2xl mr-2">☠️</span>
+                        Toxicity & Exposure Limits
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="bg-red-50 p-4 rounded border-l-4 border-red-400">
+                            <p><strong>Fatal Dose:</strong> 30 mL ingestion</p>
+                            <p><strong>Symptoms:</strong> Blindness, CNS depression, metabolic acidosis</p>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-400">
+                            <p><strong>ACGIH Exposure Limits:</strong></p>
+                            <p>• TWA (8-hour): 200 ppm</p>
+                            <p>• STEL (15-min): 250 ppm</p>
+                            <p>• Skin absorption possible</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <span class="text-xl mr-2">🏗️</span>
+                        Storage Requirements
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span>Nitrogen-blanketed tanks</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span>Explosion-proof electrical equipment</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span>Adequate ventilation systems</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span>Grounding and bonding</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">✗</span>
+                            <span>Keep away from oxidizers</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-red-500 mr-2">✗</span>
+                            <span>No ignition sources nearby</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <span class="text-xl mr-2">🥽</span>
+                        Personal Protective Equipment
+                    </h3>
+                    <ul class="space-y-2 text-sm">
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            <span>Chemical-resistant gloves (nitrile/neoprene)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            <span>Safety goggles or face shield</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            <span>Respirator (NIOSH approved)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            <span>Chemical-resistant clothing</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            <span>Safety boots (non-sparking)</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-blue-500 mr-2">•</span>
+                            <span>Emergency eyewash stations nearby</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-lg font-bold mb-4 flex items-center">
+                        <span class="text-xl mr-2">🚨</span>
+                        Emergency Response
+                    </h3>
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <p class="font-semibold text-red-600">Fire Suppression:</p>
+                            <p>• Dry powder, foam, or CO₂</p>
+                            <p>• <strong>NEVER use water jets</strong></p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-blue-600">Spill Response:</p>
+                            <p>• Eliminate ignition sources</p>
+                            <p>• Ventilate area</p>
+                            <p>• Absorb with inert material</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-green-600">First Aid:</p>
+                            <p>• Remove from exposure</p>
+                            <p>• Flush eyes/skin with water</p>
+                            <p>• Seek immediate medical attention</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold mb-4">Monitoring & Detection Systems</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-semibold mb-3">Required Monitoring Equipment</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li>• Methanol vapor detectors (LEL and toxic levels)</li>
+                            <li>• Continuous air monitoring systems</li>
+                            <li>• Temperature monitoring for storage tanks</li>
+                            <li>• Pressure relief systems</li>
+                            <li>• Emergency shutdown systems</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold mb-3">Alarm Setpoints</h4>
+                        <div class="formula-box p-4">
+                            <p class="font-mono text-sm">LEL Alarm: 1.2% (20% of LEL)</p>
+                            <p class="font-mono text-sm">Toxic Alarm: 200 ppm (TWA)</p>
+                            <p class="font-mono text-sm">High Alarm: 250 ppm (STEL)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section hidden">
+        <div class="container mx-auto px-4 py-16">
+            <h1 class="text-4xl font-bold text-center mb-12">Methanol Production Process Education</h1>
+            
+            <div class="bg-white p-8 rounded-lg shadow-lg mb-8">
+                <h2 class="text-2xl font-bold mb-6">Complete Process Flow</h2>
+                
+                <div class="grid lg:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-blue-50 p-4 rounded-lg text-center">
+                        <div class="text-3xl mb-2">⛏️</div>
+                        <h3 class="font-bold">Feedstock Prep</h3>
+                        <p class="text-sm text-gray-600">Coal/Biomass Drying & Crushing</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg text-center">
+                        <div class="text-3xl mb-2">🔥</div>
+                        <h3 class="font-bold">Gasification</h3>
+                        <p class="text-sm text-gray-600">Syngas Production</p>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg text-center">
+                        <div class="text-3xl mb-2">💨</div>
+                        <h3 class="font-bold">Gas Processing</h3>
+                        <p class="text-sm text-gray-600">SEWGS & H₂ Integration</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg text-center">
+                        <div class="text-3xl mb-2">⚗️</div>
+                        <h3 class="font-bold">Synthesis</h3>
+                        <p class="text-sm text-gray-600">Methanol Production</p>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg">
+                    <h3 class="text-lg font-bold mb-4">Process Flow Diagram</h3>
+                    <div class="flex flex-wrap items-center justify-center space-x-4 text-sm">
+                        <div class="bg-white p-3 rounded border">Coal/Biomass</div>
+                        <span>→</span>
+                        <div class="bg-white p-3 rounded border">Drying/Crushing</div>
+                        <span>→</span>
+                        <div class="bg-white p-3 rounded border">Gasifier</div>
+                        <span>→</span>
+                        <div class="bg-white p-3 rounded border">Syngas (CO+H₂)</div>
+                        <span>→</span>
+                        <div class="bg-white p-3 rounded border">SEWGS</div>
+                        <span>→</span>
+                        <div class="bg-white p-3 rounded border">CO₂ Capture</div>
+                        <span>→</span>
+                        <div class="bg-white p-3 rounded border">Green H₂</div>
+                        <span>→</span>
+                        <div class="bg-white p-3 rounded border">Methanol Reactor</div>
+                        <span>→</span>
+                        <div class="bg-white p-3 rounded border">CH₃OH Product</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">1. Feedstock Preparation</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold">Coal Processing</h4>
+                            <ul class="text-sm space-y-1 ml-4">
+                                <li>• Drying to reduce moisture content</li>
+                                <li>• Crushing to optimal particle size</li>
+                                <li>• Size classification and screening</li>
+                                <li>• Storage in covered bunkers</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Quality Requirements</h4>
+                            <div class="formula-box p-3 text-sm">
+                                <p>Moisture: &lt; 8%</p>
+                                <p>Particle size: 0-50 mm</p>
+                                <p>Ash content: &lt; 15%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">2. Gasification Process</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold">Primary Reactions</h4>
+                            <div class="formula-box p-3 space-y-1">
+                                <p class="font-mono text-sm">C + H₂O → CO + H₂</p>
+                                <p class="font-mono text-sm">CO₂ + C → 2CO</p>
+                                <p class="font-mono text-sm">C + 2H₂ → CH₄</p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Operating Conditions</h4>
+                            <div class="text-sm space-y-1">
+                                <p>• Temperature: 800-1000°C</p>
+                                <p>• Pressure: 20-40 bar</p>
+                                <p>• Steam/Coal ratio: 0.3-0.6</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-8 mb-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">3. SEWGS Process</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold">Sorption Enhanced Water Gas Shift</h4>
+                            <div class="formula-box p-3">
+                                <p class="font-mono text-sm">CO + H₂O → CO₂ + H₂</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">Simultaneous CO shift and CO₂ capture using solid sorbents</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Benefits</h4>
+                            <ul class="text-sm space-y-1 ml-4">
+                                <li>• Enhanced H₂ production</li>
+                                <li>• Integrated CO₂ capture</li>
+                                <li>• Lower operating temperature</li>
+                                <li>• Higher conversion efficiency</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-xl font-bold mb-4">4. Green Hydrogen Integration</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-semibold">CO₂ + Green H₂ Route</h4>
+                            <div class="formula-box p-3">
+                                <p class="font-mono text-sm">CO₂ + 3H₂ → CH₃OH + H₂O</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">Utilizes captured CO₂ and renewable hydrogen</p>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Sustainability Benefits</h4>
+                            <ul class="text-sm space-y-1 ml-4">
+                                <li>• Carbon recycling</li>
+                                <li>• Renewable energy storage</li>
+                                <li>• Reduced CO₂ emissions</li>
+                                <li>• Grid balancing capability</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-lg shadow-lg">
+                <h3 class="text-2xl font-bold mb-6">5. Methanol Synthesis Reactor</h3>
+                
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Synthesis Reactions</h4>
+                        <div class="formula-box p-4 mb-4">
+                            <p class="font-mono">Primary: CO + 2H₂ → CH₃OH</p>
+                            <p class="font-mono">Secondary: CO₂ + 3H₂ → CH₃OH + H₂O</p>
+                            <p class="font-mono">Side: CO₂ + H₂ → CO + H₂O</p>
+                        </div>
+                        
+                        <h4 class="text-lg font-semibold mb-3">Catalyst System</h4>
+                        <div class="text-sm space-y-2">
+                            <p>• <strong>Active component:</strong> Copper (Cu)</p>
+                            <p>• <strong>Promoter:</strong> Zinc oxide (ZnO)</p>
+                            <p>• <strong>Support:</strong> Aluminum oxide (Al₂O₃)</p>
+                            <p>• <strong>Typical composition:</strong> Cu/ZnO/Al₂O₃</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold mb-4">Operating Conditions</h4>
+                        <div class="bg-gray-50 p-4 rounded space-y-2 text-sm">
+                            <p><strong>Temperature:</strong> 220-280°C</p>
+                            <p><strong>Pressure:</strong> 50-100 bar</p>
+                            <p><strong>H₂/CO ratio:</strong> 2:1 (stoichiometric)</p>
+                            <p><strong>Space velocity:</strong> 5000-15000 h⁻¹</p>
+                            <p><strong>Conversion per pass:</strong> 15-25%</p>
+                        </div>
+                        
+                        <h4 class="text-lg font-semibold mb-3 mt-4">Process Features</h4>
+                        <ul class="text-sm space-y-1">
+                            <li>• Highly exothermic reactions</li>
+                            <li>• Multi-stage cooling required</li>
+                            <li>• Recycle loop for unconverted syngas</li>
+                            <li>• Product separation and purification</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section hidden">
+        <div class="container mx-auto px-4 py-16">
+            <h1 class="text-4xl font-bold text-center mb-12">Contact & Support</h1>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-lg shadow-lg">
+                    <h2 class="text-2xl font-bold mb-6">Technical Inquiry Form</h2>
+                    <form id="contactForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Name</label>
+                            <input type="text" class="w-full p-3 border border-gray-300 rounded-lg" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Company</label>
+                            <input type="text" class="w-full p-3 border border-gray-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" class="w-full p-3 border border-gray-300 rounded-lg" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Inquiry Type</label>
+                            <select class="w-full p-3 border border-gray-300 rounded-lg">
+                                <option>Tank Design Consultation</option>
+                                <option>Process Optimization</option>
+                                <option>Safety Assessment</option>
+                                <option>Production Planning</option>
+                                <option>Equipment Sizing</option>
+                                <option>Other Technical Support</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Message</label>
+                            <textarea class="w-full p-3 border border-gray-300 rounded-lg h-32" placeholder="Describe your technical requirements or questions..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">Submit Inquiry</button>
+                    </form>
+                </div>
+
+                <div class="space-y-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Frequently Asked Questions</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-semibold text-blue-600">What tank materials are recommended for methanol storage?</h4>
+                                <p class="text-sm text-gray-700 mt-1">Carbon steel with appropriate coatings, or stainless steel (316L) for long-term storage. Aluminum and copper alloys should be avoided.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-600">How do I calculate the required ventilation rate?</h4>
+                                <p class="text-sm text-gray-700 mt-1">Minimum 6 air changes per hour for enclosed areas. Use vapor generation rates and dispersion modeling for specific calculations.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-600">What are the key process control parameters?</h4>
+                                <p class="text-sm text-gray-700 mt-1">Temperature (220-280°C), pressure (50-100 bar), H₂/CO ratio (2:1), and catalyst activity monitoring are critical.</p>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-600">How often should safety systems be tested?</h4>
+                                <p class="text-sm text-gray-700 mt-1">Gas detection systems monthly, pressure relief valves annually, and emergency shutdown systems quarterly.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-xl font-bold mb-4">Engineering Resources</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center">
+                                <span class="text-blue-600 mr-2">📋</span>
+                                <span class="text-sm">ASME Pressure Vessel Code (Section VIII)</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-blue-600 mr-2">📋</span>
+                                <span class="text-sm">API 650 - Welded Steel Tanks</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-blue-600 mr-2">📋</span>
+                                <span class="text-sm">NFPA 30 - Flammable Liquids Code</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-blue-600 mr-2">📋</span>
+                                <span class="text-sm">OSHA 29 CFR 1910.106 - Storage Standards</span>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-blue-600 mr-2">📋</span>
+                                <span class="text-sm">IEC 61511 - Safety Instrumented Systems</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-6 rounded-lg">
+                        <h3 class="text-lg font-bold mb-3">Professional Services</h3>
+                        <p class="text-sm text-gray-700 mb-4">Our engineering team provides comprehensive support for methanol production facilities:</p>
+                        <ul class="text-sm space-y-1">
+                            <li>• Process design and optimization</li>
+                            <li>• Equipment sizing and specification</li>
+                            <li>• Safety system design</li>
+                            <li>• Regulatory compliance consulting</li>
+                            <li>• Operational troubleshooting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Global variables for charts and data
+        let productionChart, efficiencyChart, cumulativeChart;
+        let dailyData = [];
+        let currentDay = 1;
+
+        // Navigation functions
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.remove('hidden');
+            
+            // Initialize charts if showing dashboard
+            if (sectionId === 'dashboard') {
+                setTimeout(initializeCharts, 100);
+            }
+            
+            // Close mobile menu
+            document.getElementById('mobileMenu').classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Tank Calculator Functions
+        function updateCalculatorFields() {
+            const materialType = document.getElementById('materialType').value;
+            const additionalInputs = document.getElementById('additionalInputs');
+            const capacityUnit = document.getElementById('capacityUnit');
+            
+            let inputsHTML = '';
+            
+            switch(materialType) {
+                case 'coal':
+                    capacityUnit.textContent = 'm³';
+                    inputsHTML = `
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Length (m)</label>
+                            <input type="number" id="length" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="20">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Width (m)</label>
+                            <input type="number" id="width" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="10">
+                        </div>
+                    `;
+                    break;
+                case 'feedwater':
+                    capacityUnit.textContent = 'm³';
+                    inputsHTML = `
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Storage Days</label>
+                            <input type="number" id="storageDays" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="15">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Number of Tanks</label>
+                            <input type="number" id="numTanks" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="2">
+                        </div>
+                    `;
+                    break;
+                case 'methanol':
+                    capacityUnit.textContent = 't';
+                    inputsHTML = `
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Storage Days</label>
+                            <input type="number" id="storageDays" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="7">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Number of Tanks</label>
+                            <input type="number" id="numTanks" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="2">
+                        </div>
+                    `;
+                    break;
+            }
+            
+            additionalInputs.innerHTML = inputsHTML;
+        }
+
+        function calculateTankDimensions() {
+            const materialType = document.getElementById('materialType').value;
+            const storageCapacity = parseFloat(document.getElementById('storageCapacity').value);
+            
+            if (!storageCapacity) {
+                alert('Please enter storage capacity');
+                return;
+            }
+            
+            let results = '';
+            
+            switch(materialType) {
+                case 'coal':
+                    results = calculateCoalBunker(storageCapacity);
+                    break;
+                case 'feedwater':
+                    results = calculateFeedwaterTank(storageCapacity);
+                    break;
+                case 'methanol':
+                    results = calculateMethanolTank(storageCapacity);
+                    break;
+            }
+            
+            document.getElementById('resultsContent').innerHTML = results;
+            document.getElementById('calculationResults').classList.remove('hidden');
+        }
+
+        function calculateCoalBunker(volume) {
+            const length = parseFloat(document.getElementById('length').value) || 20;
+            const width = parseFloat(document.getElementById('width').value) || 10;
+            
+            const height = volume / (length * width);
+            const recommendedHeight = Math.ceil(height * 10) / 10; // Round up to 0.1m
+            
+            return `
+                <div class="space-y-4">
+                    <h4 class="text-lg font-semibold">Coal Storage Bunker Design</h4>
+                    
+                    <div class="formula-box p-4">
+                        <h5 class="font-semibold mb-2">Calculation Steps:</h5>
+                        <p class="font-mono text-sm">Given: Volume = ${volume} m³</p>
+                        <p class="font-mono text-sm">Given: Length = ${length} m, Width = ${width} m</p>
+                        <p class="font-mono text-sm">Formula: H = V ÷ (L × W)</p>
+                        <p class="font-mono text-sm">H = ${volume} ÷ (${length} × ${width}) = ${height.toFixed(2)} m</p>
+                        <p class="font-mono text-sm">Recommended: H = ${recommendedHeight} m</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded">
+                            <h5 class="font-semibold mb-2">Dimensions</h5>
+                            <p>Length: ${length} m</p>
+                            <p>Width: ${width} m</p>
+                            <p>Height: ${recommendedHeight} m</p>
+                            <p>Actual Volume: ${(length * width * recommendedHeight).toFixed(1)} m³</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded">
+                            <h5 class="font-semibold mb-2">Design Features</h5>
+                            <p>• Hopper bottom design</p>
+                            <p>• Abrasion-resistant lining</p>
+                            <p>• Weather protection roof</p>
+                            <p>• CO detection systems</p>
+                            <p>• Dust suppression</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function calculateFeedwaterTank(volume) {
+            const storageDays = parseFloat(document.getElementById('storageDays').value) || 15;
+            const numTanks = parseInt(document.getElementById('numTanks').value) || 2;
+            
+            const totalVolume = volume * storageDays / 15; // Adjust for different storage days
+            const volumePerTank = totalVolume / numTanks;
+            
+            // H/D = 1.5, V = (π/4)D²H
+            // V = (π/4)D² × 1.5D = (1.5π/4)D³
+            const diameter = Math.pow(volumePerTank * 4 / (1.5 * Math.PI), 1/3);
+            const height = 1.5 * diameter;
+            
+            return `
+                <div class="space-y-4">
+                    <h4 class="text-lg font-semibold">Feedwater Storage Tank Design</h4>
+                    
+                    <div class="formula-box p-4">
+                        <h5 class="font-semibold mb-2">Calculation Steps:</h5>
+                        <p class="font-mono text-sm">Water demand = ${volume} m³ (base)</p>
+                        <p class="font-mono text-sm">Storage period = ${storageDays} days</p>
+                        <p class="font-mono text-sm">Total volume = ${totalVolume.toFixed(1)} m³</p>
+                        <p class="font-mono text-sm">Volume per tank = ${volumePerTank.toFixed(1)} m³</p>
+                        <p class="font-mono text-sm">H/D ratio = 1.5</p>
+                        <p class="font-mono text-sm">V = (π/4)D²H = (π/4)D² × 1.5D</p>
+                        <p class="font-mono text-sm">D = ${diameter.toFixed(2)} m</p>
+                        <p class="font-mono text-sm">H = ${height.toFixed(2)} m</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded">
+                            <h5 class="font-semibold mb-2">Tank Specifications</h5>
+                            <p>Number of tanks: ${numTanks}</p>
+                            <p>Diameter: ${diameter.toFixed(2)} m</p>
+                            <p>Height: ${height.toFixed(2)} m</p>
+                            <p>Volume per tank: ${volumePerTank.toFixed(1)} m³</p>
+                            <p>Total capacity: ${totalVolume.toFixed(1)} m³</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded">
+                            <h5 class="font-semibold mb-2">Design Notes</h5>
+                            <p>• Carbon steel construction</p>
+                            <p>• Internal coating for corrosion protection</p>
+                            <p>• Level instrumentation</p>
+                            <p>• Overflow protection</p>
+                            <p>• Foundation design required</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function calculateMethanolTank(mass) {
+            const storageDays = parseFloat(document.getElementById('storageDays').value) || 7;
+            const numTanks = parseInt(document.getElementById('numTanks').value) || 2;
+            
+            const totalMass = mass * storageDays / 7; // Adjust for different storage days
+            const density = 792; // kg/m³
+            const totalVolume = totalMass * 1000 / density; // Convert tonnes to kg, then to m³
+            const volumePerTank = totalVolume / numTanks;
+            
+            // H/D = 1.5, V = (π/4)D²H
+            const diameter = Math.pow(volumePerTank * 4 / (1.5 * Math.PI), 1/3);
+            const height = 1.5 * diameter;
+            
+            // Shell thickness calculation (simplified)
+            const pressure = 1.5; // bar (design pressure)
+            const allowableStress = 138; // MPa for carbon steel
+            const efficiency = 0.85;
+            const shellThickness = (pressure * diameter * 1000) / (2 * allowableStress * efficiency - 1.2 * pressure);
+            
+            return `
+                <div class="space-y-4">
+                    <h4 class="text-lg font-semibold">Methanol Product Tank Design</h4>
+                    
+                    <div class="formula-box p-4">
+                        <h5 class="font-semibold mb-2">Calculation Steps:</h5>
+                        <p class="font-mono text-sm">Production = ${mass} t/day</p>
+                        <p class="font-mono text-sm">Storage = ${storageDays} days</p>
+                        <p class="font-mono text-sm">Total mass = ${totalMass.toFixed(1)} t</p>
+                        <p class="font-mono text-sm">Density = ${density} kg/m³</p>
+                        <p class="font-mono text-sm">Volume = ${totalMass.toFixed(1)} × 1000 ÷ ${density} = ${totalVolume.toFixed(1)} m³</p>
+                        <p class="font-mono text-sm">Volume per tank = ${volumePerTank.toFixed(1)} m³</p>
+                        <p class="font-mono text-sm">D = ${diameter.toFixed(2)} m, H = ${height.toFixed(2)} m</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded">
+                            <h5 class="font-semibold mb-2">Tank Specifications</h5>
+                            <p>Number of tanks: ${numTanks}</p>
+                            <p>Diameter: ${diameter.toFixed(2)} m</p>
+                            <p>Height: ${height.toFixed(2)} m</p>
+                            <p>Volume per tank: ${volumePerTank.toFixed(1)} m³</p>
+                            <p>Shell thickness: ${shellThickness.toFixed(2)} mm</p>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded border-l-4 border-yellow-400">
+                            <h5 class="font-semibold mb-2">Safety Requirements</h5>
+                            <p>• Nitrogen blanketing system</p>
+                            <p>• Explosion-proof equipment</p>
+                            <p>• Vapor recovery system</p>
+                            <p>• Emergency venting</p>
+                            <p>• Fire suppression system</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Production Dashboard Functions
+        function updateProduction() {
+            const coalInput = parseFloat(document.getElementById('coalInput').value) || 0;
+            const waterInput = parseFloat(document.getElementById('waterInput').value) || 0;
+            const methanolOutput = parseFloat(document.getElementById('methanolOutput').value) || 0;
+            
+            // Calculate efficiencies
+            const coalEfficiency = methanolOutput > 0 ? (81.72 / coalInput * 100).toFixed(1) : 0;
+            const waterEfficiency = methanolOutput > 0 ? (112.45 / waterInput * 100).toFixed(1) : 0;
+            const overallEfficiency = (parseFloat(coalEfficiency) + parseFloat(waterEfficiency)) / 2;
+            
+            document.getElementById('coalEfficiency').textContent = coalEfficiency + '%';
+            document.getElementById('waterEfficiency').textContent = waterEfficiency + '%';
+            
+            const overallRating = document.getElementById('overallRating');
+            if (overallEfficiency >= 95) {
+                overallRating.textContent = 'Excellent';
+                overallRating.className = 'font-bold text-green-600';
+            } else if (overallEfficiency >= 85) {
+                overallRating.textContent = 'Good';
+                overallRating.className = 'font-bold text-blue-600';
+            } else if (overallEfficiency >= 75) {
+                overallRating.textContent = 'Fair';
+                overallRating.className = 'font-bold text-yellow-600';
+            } else {
+                overallRating.textContent = 'Poor';
+                overallRating.className = 'font-bold text-red-600';
+            }
+        }
+
+        function addDailyData() {
+            const coalInput = parseFloat(document.getElementById('coalInput').value) || 0;
+            const waterInput = parseFloat(document.getElementById('waterInput').value) || 0;
+            const methanolOutput = parseFloat(document.getElementById('methanolOutput').value) || 0;
+            
+            if (coalInput === 0 || waterInput === 0 || methanolOutput === 0) {
+                alert('Please enter all production data');
+                return;
+            }
+            
+            const coalEfficiency = (81.72 / coalInput * 100);
+            const waterEfficiency = (112.45 / waterInput * 100);
+            const overallEfficiency = (coalEfficiency + waterEfficiency) / 2;
+            
+            dailyData.push({
+                day: currentDay++,
+                coal: coalInput,
+                water: waterInput,
+                methanol: methanolOutput,
+                coalEfficiency: coalEfficiency,
+                waterEfficiency: waterEfficiency,
+                overallEfficiency: overallEfficiency
+            });
+            
+            updateCharts();
+            
+            // Clear inputs
+            document.getElementById('coalInput').value = '';
+            document.getElementById('waterInput').value = '';
+            document.getElementById('methanolOutput').value = '';
+            updateProduction();
+        }
+
+        function initializeCharts() {
+            // Production Chart
+            const productionCtx = document.getElementById('productionChart').getContext('2d');
+            productionChart = new Chart(productionCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Coal (t/day)',
+                        data: [],
+                        backgroundColor: 'rgba(75, 192, 192, 0.6)'
+                    }, {
+                        label: 'Water (t/day)',
+                        data: [],
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)'
+                    }, {
+                        label: 'Methanol (t/day)',
+                        data: [],
+                        backgroundColor: 'rgba(255, 99, 132, 0.6)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Efficiency Chart
+            const efficiencyCtx = document.getElementById('efficiencyChart').getContext('2d');
+            efficiencyChart = new Chart(efficiencyCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Overall Efficiency (%)',
+                        data: [],
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 120
+                        }
+                    }
+                }
+            });
+
+            // Cumulative Chart
+            const cumulativeCtx = document.getElementById('cumulativeChart').getContext('2d');
+            cumulativeChart = new Chart(cumulativeCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Cumulative Methanol Production (t)',
+                        data: [],
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        fill: true,
+                        tension: 0.1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateCharts() {
+            if (!productionChart || !efficiencyChart || !cumulativeChart) return;
+            
+            const days = dailyData.map(d => `Day ${d.day}`);
+            const coalData = dailyData.map(d => d.coal);
+            const waterData = dailyData.map(d => d.water);
+            const methanolData = dailyData.map(d => d.methanol);
+            const efficiencyData = dailyData.map(d => d.overallEfficiency);
+            
+            // Calculate cumulative production
+            let cumulative = 0;
+            const cumulativeData = dailyData.map(d => {
+                cumulative += d.methanol;
+                return cumulative;
+            });
+            
+            // Update production chart
+            productionChart.data.labels = days;
+            productionChart.data.datasets[0].data = coalData;
+            productionChart.data.datasets[1].data = waterData;
+            productionChart.data.datasets[2].data = methanolData;
+            productionChart.update();
+            
+            // Update efficiency chart
+            efficiencyChart.data.labels = days;
+            efficiencyChart.data.datasets[0].data = efficiencyData;
+            efficiencyChart.update();
+            
+            // Update cumulative chart
+            cumulativeChart.data.labels = days;
+            cumulativeChart.data.datasets[0].data = cumulativeData;
+            cumulativeChart.update();
+        }
+
+        // Contact form handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Thank you for your inquiry! This is a demo form. In a real application, this would be sent to our engineering team.');
+                });
+            }
+            
+            // Initialize calculator fields
+            updateCalculatorFields();
+        });
+
+        // Initialize the page
+        showSection('home');
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97075edf0320ff75',t:'MTc1NTQxNDgyNS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
